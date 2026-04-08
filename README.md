@@ -48,6 +48,30 @@ If the frontend is hosted on GitHub Pages, deploy the chat backend separately an
 
 GitHub Pages cannot safely store a runtime Gemini API key for browser-side use.
 
+## GitHub Pages setup
+
+If you are deploying the site from GitHub, GitHub should only know the chatbot backend URL, not the Gemini API key.
+
+Set it like this:
+
+1. Open your repository on GitHub
+2. Go to `Settings`
+3. Go to `Secrets and variables`
+4. Open `Actions`
+5. Open `Variables`
+6. Add a repository variable named:
+   `VITE_CHAT_API_URL`
+7. Set its value to:
+   `https://your-backend.example.com/api/chat`
+
+Put the Gemini key on the backend host only:
+
+- `GEMINI_API_KEY=...`
+- `GEMINI_MODEL=gemini-3-flash-preview`
+- `FRONTEND_ORIGIN=https://park-sangdon.github.io`
+
+Do not put `GEMINI_API_KEY` into any `VITE_*` variable or frontend file.
+
 ## Model note
 
 As of 2026-04-08, Google AI for Developers publicly lists:
