@@ -1,6 +1,6 @@
-import { useState, useRef, useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { MessageSquare, Send, X, Bot, User, Loader2, Sparkles, RefreshCw } from "lucide-react";
+import { Bot, Loader2, MessageSquare, RefreshCw, Send, Sparkles, User, X } from "lucide-react";
 import { LAB_INFO } from "../constants";
 import { cn } from "../lib/utils";
 
@@ -16,15 +16,18 @@ interface ChatResponse {
 
 interface HealthResponse {
   ok: boolean;
+  status?: "online" | "misconfigured";
   model?: string;
   hasApiKey?: boolean;
 }
 
-type BackendStatus =
-  | { state: "checking"; detail: string; model?: string }
-  | { state: "online"; detail: string; model: string }
-  | { state: "offline"; detail: string; model?: string }
-  | { state: "misconfigured"; detail: string; model?: string };
+type BackendState = "checking" | "online" | "offline" | "misconfigured" | "request_failed";
+
+interface BackendStatus {
+  state: BackendState;
+  detail: string;
+  model?: string;
+}
 
 const CHAT_API_URL = import.meta.env.VITE_CHAT_API_URL?.trim() || "/api/chat";
 
@@ -60,6 +63,42 @@ function formatModelName(model: string) {
     .replace(/Flash Lite Preview/i, "Flash Lite Preview");
 }
 
+function createBackendStatus(state: BackendState, detail: string, model?: string): BackendStatus {
+  return { state, detail, model };
+}
+
+function failureCopy(state: BackendState) {
+  if (state === "misconfigured") {
+    return "The backend is reachable, but the Gemini API key is missing. Confirm the backend secret or environment variable, then redeploy the backend and retry.";
+  }
+
+  if (state === "request_failed") {
+    return "The backend reached Gemini but the request failed. Retry later or check the backend logs and model configuration.";
+  }
+
+  if (state === "checking") {
+    return "The backend is still being checked. Try again in a moment.";
+  }
+
+  return "The backend is unreachable. Check the backend URL or confirm the backend deployment, then retry.";
+}
+
+function classifyHealthResponse(response: Response, data: Partial<HealthResponse>): BackendStatus {
+  if (!response.ok) {
+    return createBackendStatus("offline", "Backend health check failed. Check the backend URL and deployment.");
+  }
+
+  if (data.status === "misconfigured" || data.hasApiKey === false) {
+    return createBackendStatus(
+      "misconfigured",
+      "Backend is reachable, but the Gemini API key is missing. Confirm the backend secret and redeploy.",
+      data.model,
+    );
+  }
+
+  return createBackendStatus("online", "Backend is reachable.", data.model || "gemini-3-flash-preview");
+}
+
 export default function Chatbot() {
   const [isOpen, setIsOpen] = useState(false);
   const [input, setInput] = useState("");
@@ -70,10 +109,7 @@ export default function Chatbot() {
       content: `Hello. I'm the ${LAB_INFO.name} site assistant. Ask me about the profile, research, publications, or contact details.`,
     },
   ]);
-  const [backendStatus, setBackendStatus] = useState<BackendStatus>({
-    state: "checking",
-    detail: "Checking backend connection...",
-  });
+  const [backendStatus, setBackendStatus] = useState<BackendStatus>(createBackendStatus("checking", "Checking backend connection..."));
   const scrollRef = useRef<HTMLDivElement>(null);
   const healthUrl = getHealthUrl(CHAT_API_URL);
 
@@ -83,79 +119,49 @@ export default function Chatbot() {
     }
   }, [messages, isLoading]);
 
+  const refreshBackendStatus = async () => {
+    const controller = new AbortController();
+    const timeoutId = window.setTimeout(() => controller.abort(), 5000);
+
+    setBackendStatus(createBackendStatus("checking", "Checking backend connection..."));
+
+    try {
+      const response = await fetch(healthUrl, {
+        signal: controller.signal,
+        cache: "no-store",
+      });
+
+      const data = (await response.json()) as Partial<HealthResponse>;
+      setBackendStatus(classifyHealthResponse(response, data));
+    } catch (error) {
+      setBackendStatus(
+        createBackendStatus(
+          "offline",
+          error instanceof DOMException && error.name === "AbortError"
+            ? "Backend health check timed out. Check the backend URL and deployment, then retry."
+            : "Backend is unreachable. Check the backend URL or confirm the backend deployment, then retry.",
+        ),
+      );
+    } finally {
+      window.clearTimeout(timeoutId);
+    }
+  };
+
   useEffect(() => {
     let active = true;
     let intervalId: number | undefined;
 
-    const probeBackend = async () => {
-      const controller = new AbortController();
-      const timeoutId = window.setTimeout(() => controller.abort(), 5000);
-
-      try {
-        if (active) {
-          setBackendStatus({
-            state: "checking",
-            detail: "Checking backend connection...",
-          });
-        }
-
-        const response = await fetch(healthUrl, {
-          signal: controller.signal,
-          cache: "no-store",
-        });
-
-        const data = (await response.json()) as Partial<HealthResponse>;
-
-        if (!active) {
-          return;
-        }
-
-        if (!response.ok || !data.ok) {
-          setBackendStatus({
-            state: data.hasApiKey === false ? "misconfigured" : "offline",
-            detail:
-              data.hasApiKey === false
-                ? "Backend is reachable, but the Gemini API key is missing."
-                : "Backend health check failed.",
-            model: data.model,
-          });
-          return;
-        }
-
-        if (data.hasApiKey === false) {
-          setBackendStatus({
-            state: "misconfigured",
-            detail: "Backend is reachable, but the Gemini API key is missing.",
-            model: data.model,
-          });
-          return;
-        }
-
-        setBackendStatus({
-          state: "online",
-          detail: "Backend is reachable.",
-          model: data.model || "Gemini",
-        });
-      } catch (error) {
-        if (!active) {
-          return;
-        }
-
-        setBackendStatus({
-          state: "offline",
-          detail:
-            error instanceof DOMException && error.name === "AbortError"
-              ? "Backend health check timed out."
-              : "Backend is unreachable.",
-        });
-      } finally {
-        window.clearTimeout(timeoutId);
+    const probe = async () => {
+      if (!active) {
+        return;
       }
+
+      await refreshBackendStatus();
     };
 
-    void probeBackend();
+    void probe();
     intervalId = window.setInterval(() => {
-      void probeBackend();
+      void probe();
     }, 30000);
 
     return () => {
@@ -171,15 +177,12 @@ export default function Chatbot() {
       return;
     }
 
-    if (backendStatus.state !== "online") {
+    if (backendStatus.state === "offline" || backendStatus.state === "misconfigured" || backendStatus.state === "checking") {
       setMessages((prev) => [
         ...prev,
         {
           role: "assistant",
-          content:
-            backendStatus.state === "misconfigured"
-              ? "The backend is reachable, but the Gemini API key is missing. Check the backend secret configuration and try again."
-              : "I cannot send a message because the backend is offline. Check the backend URL or try again once the health status turns online.",
+          content: failureCopy(backendStatus.state),
         },
       ]);
       return;
@@ -205,25 +208,44 @@ export default function Chatbot() {
         }),
       });
 
-      const data = (await response.json()) as Partial<ChatResponse> & { error?: string };
+      const data = (await response.json()) as Partial<ChatResponse> & { error?: string; errorCode?: string; status?: string };
 
       if (!response.ok || !data.reply) {
+        const requestState: BackendState =
+          data.errorCode === "MISCONFIGURED" || data.status === "misconfigured"
+            ? "misconfigured"
+            : data.errorCode === "REQUEST_FAILED" || response.status >= 500
+              ? "request_failed"
+              : response.status === 503
+                ? "misconfigured"
+                : "offline";
+
+        setBackendStatus(
+          requestState === "misconfigured"
+            ? createBackendStatus("misconfigured", "Backend is reachable, but the Gemini API key is missing. Confirm the backend secret and redeploy.")
+            : requestState === "request_failed"
+              ? createBackendStatus("request_failed", "The backend reached Gemini but the request failed. Retry later or check the backend logs and model configuration.")
+              : createBackendStatus("offline", "The backend request failed. Check the backend URL and deployment, then retry."),
+        );
+
         throw new Error(data.error || "The chat server did not return a valid response.");
       }
 
-      const activeModel = data.model || backendStatus.model || "Gemini";
-      setBackendStatus({
-        state: "online",
-        detail: "Backend responded successfully.",
-        model: activeModel,
-      });
+      const activeModel = data.model || backendStatus.model || "gemini-3-flash-preview";
+      setBackendStatus(
+        createBackendStatus(
+          "online",
+          "Backend responded successfully.",
+          activeModel,
+        ),
+      );
       setMessages((prev) => [...prev, { role: "assistant", content: data.reply as string }]);
     } catch (error) {
       console.error("Chatbot error:", error);
-      setBackendStatus({
-        state: "offline",
-        detail: "The backend request failed.",
-      });
+
+      if (backendStatus.state !== "misconfigured" && backendStatus.state !== "request_failed") {
+        setBackendStatus(createBackendStatus("offline", "The backend request failed. Check the backend URL and deployment, then retry."));
+      }
 
       setMessages((prev) => [
         ...prev,
@@ -231,8 +253,8 @@ export default function Chatbot() {
           role: "assistant",
           content:
             error instanceof Error && error.message.includes("Failed to fetch")
-              ? "The chat server is not reachable. If this site is on GitHub Pages, set VITE_CHAT_API_URL in GitHub Actions variables and deploy the Gemini backend separately."
-              : "Sorry, the assistant is unavailable right now. Check the backend URL and try again later.",
+              ? "The backend is unreachable. Check the backend URL or confirm the backend deployment, then retry."
+              : "The backend request failed after reaching the server. Retry later or check the backend logs and model configuration.",
         },
       ]);
     } finally {
@@ -242,12 +264,25 @@ export default function Chatbot() {
 
   const statusLabel =
     backendStatus.state === "online"
-      ? `Online ¡¤ ${formatModelName(backendStatus.model || "Gemini")}`
+      ? `Online ¡¤ ${formatModelName(backendStatus.model || "gemini-3-flash-preview")}`
       : backendStatus.state === "misconfigured"
         ? "Misconfigured"
-        : backendStatus.state === "offline"
-          ? "Offline"
-          : "Checking...";
+        : backendStatus.state === "request_failed"
+          ? "Request failed"
+          : backendStatus.state === "offline"
+            ? "Offline"
+            : "Checking...";
+
+  const statusTone =
+    backendStatus.state === "online"
+      ? "text-emerald-700"
+      : backendStatus.state === "misconfigured"
+        ? "text-amber-700"
+        : backendStatus.state === "request_failed"
+          ? "text-rose-700"
+          : backendStatus.state === "offline"
+            ? "text-slate-700"
+            : "text-slate-700";
 
   const canSend = backendStatus.state === "online" && !isLoading && input.trim().length > 0;
 
@@ -282,43 +317,22 @@ export default function Chatbot() {
             <div className="border-b border-slate-100 bg-slate-50 px-4 py-3">
               <div className="flex items-center justify-between gap-3 text-xs">
                 <div className="min-w-0">
-                  <p className={cn(
-                    "font-semibold",
-                    backendStatus.state === "online" && "text-emerald-700",
-                    backendStatus.state === "offline" && "text-rose-700",
-                    backendStatus.state === "misconfigured" && "text-amber-700",
-                    backendStatus.state === "checking" && "text-slate-700",
-                  )}>
-                    {backendStatus.state === "online" ? "Backend online" : backendStatus.state === "offline" ? "Backend offline" : backendStatus.state === "misconfigured" ? "Backend misconfigured" : "Checking backend"}
+                  <p className={cn("font-semibold", statusTone)}>
+                    {backendStatus.state === "online"
+                      ? "Backend online"
+                      : backendStatus.state === "offline"
+                        ? "Backend offline"
+                        : backendStatus.state === "misconfigured"
+                          ? "Backend misconfigured"
+                          : backendStatus.state === "request_failed"
+                            ? "Request failed"
+                            : "Checking backend"}
                   </p>
                   <p className="truncate text-slate-500">{backendStatus.detail}</p>
                 </div>
                 <button
                   type="button"
-                  onClick={() => {
-                    setBackendStatus({ state: "checking", detail: "Checking backend connection..." });
-                    void fetch(healthUrl, { cache: "no-store" }).then(async (response) => {
-                      const data = (await response.json()) as Partial<HealthResponse>;
-                      if (!response.ok || !data.ok || data.hasApiKey === false) {
-                        setBackendStatus({
-                          state: data.hasApiKey === false ? "misconfigured" : "offline",
-                          detail:
-                            data.hasApiKey === false
-                              ? "Backend is reachable, but the Gemini API key is missing."
-                              : "Backend health check failed.",
-                          model: data.model,
-                        });
-                        return;
-                      }
-                      setBackendStatus({
-                        state: "online",
-                        detail: "Backend is reachable.",
-                        model: data.model || backendStatus.model || "Gemini",
-                      });
-                    }).catch(() => {
-                      setBackendStatus({ state: "offline", detail: "Backend is unreachable." });
-                    });
-                  }}
+                  onClick={() => void refreshBackendStatus()}
                   className="inline-flex items-center gap-1 rounded-full border border-slate-200 bg-white px-2.5 py-1 font-medium text-slate-600 hover:border-slate-300 hover:text-slate-900"
                 >
                   <RefreshCw className="h-3 w-3" />

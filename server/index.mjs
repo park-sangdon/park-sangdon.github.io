@@ -37,6 +37,7 @@ app.use((req, res, next) => {
 app.get(["/health", "/api/health"], (_req, res) => {
   res.json({
     ok: true,
+    status: apiKey ? "online" : "misconfigured",
     model,
     hasApiKey: Boolean(apiKey),
   });
@@ -44,8 +45,11 @@ app.get(["/health", "/api/health"], (_req, res) => {
 
 app.post("/api/chat", async (req, res) => {
   if (!apiKey) {
-    res.status(500).json({
+    res.status(503).json({
       error: "Gemini API key is not configured on the chat server.",
+      errorCode: "MISCONFIGURED",
+      status: "misconfigured",
+      model,
     });
     return;
   }
@@ -55,7 +59,7 @@ app.post("/api/chat", async (req, res) => {
   const siteContext = req.body?.siteContext && typeof req.body.siteContext === "object" ? req.body.siteContext : {};
 
   if (!message) {
-    res.status(400).json({ error: "message is required." });
+    res.status(400).json({ error: "message is required.", errorCode: "INVALID_REQUEST" });
     return;
   }
 
@@ -108,11 +112,15 @@ Site context:
     res.json({
       reply: response.text?.trim() || "I could not generate a response.",
       model,
+      status: "online",
     });
   } catch (error) {
     console.error("Gemini chat error", error);
-    res.status(500).json({
+    res.status(502).json({
       error: "Gemini request failed.",
+      errorCode: "REQUEST_FAILED",
+      status: "request_failed",
+      model,
     });
   }
 });
