@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { MessageSquare, Send, X, Bot, User, Loader2, Sparkles } from "lucide-react";
+import { MessageSquare, Send, X, Bot, User, Loader2, Sparkles, RefreshCw } from "lucide-react";
 import { LAB_INFO } from "../constants";
 import { cn } from "../lib/utils";
 
@@ -13,6 +13,18 @@ interface ChatResponse {
   reply: string;
   model?: string;
 }
+
+interface HealthResponse {
+  ok: boolean;
+  model?: string;
+  hasApiKey?: boolean;
+}
+
+type BackendStatus =
+  | { state: "checking"; detail: string; model?: string }
+  | { state: "online"; detail: string; model: string }
+  | { state: "offline"; detail: string; model?: string }
+  | { state: "misconfigured"; detail: string; model?: string };
 
 const CHAT_API_URL = import.meta.env.VITE_CHAT_API_URL?.trim() || "/api/chat";
 
@@ -32,18 +44,38 @@ function getSiteContext() {
   };
 }
 
+function getHealthUrl(chatUrl: string) {
+  if (chatUrl.endsWith("/chat")) {
+    return `${chatUrl.slice(0, -5)}/health`;
+  }
+
+  return chatUrl.endsWith("/") ? `${chatUrl}health` : `${chatUrl}/health`;
+}
+
+function formatModelName(model: string) {
+  return model
+    .replace(/[-_]/g, " ")
+    .replace(/\b(\w)/g, (match) => match.toUpperCase())
+    .replace(/Flash Preview/i, "Flash Preview")
+    .replace(/Flash Lite Preview/i, "Flash Lite Preview");
+}
+
 export default function Chatbot() {
   const [isOpen, setIsOpen] = useState(false);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [activeModel, setActiveModel] = useState<string>("Gemini Chat");
   const [messages, setMessages] = useState<Message[]>([
     {
       role: "assistant",
       content: `Hello. I'm the ${LAB_INFO.name} site assistant. Ask me about the profile, research, publications, or contact details.`,
     },
   ]);
+  const [backendStatus, setBackendStatus] = useState<BackendStatus>({
+    state: "checking",
+    detail: "Checking backend connection...",
+  });
   const scrollRef = useRef<HTMLDivElement>(null);
+  const healthUrl = getHealthUrl(CHAT_API_URL);
 
   useEffect(() => {
     if (scrollRef.current) {
@@ -51,8 +83,105 @@ export default function Chatbot() {
     }
   }, [messages, isLoading]);
 
+  useEffect(() => {
+    let active = true;
+    let intervalId: number | undefined;
+
+    const probeBackend = async () => {
+      const controller = new AbortController();
+      const timeoutId = window.setTimeout(() => controller.abort(), 5000);
+
+      try {
+        if (active) {
+          setBackendStatus({
+            state: "checking",
+            detail: "Checking backend connection...",
+          });
+        }
+
+        const response = await fetch(healthUrl, {
+          signal: controller.signal,
+          cache: "no-store",
+        });
+
+        const data = (await response.json()) as Partial<HealthResponse>;
+
+        if (!active) {
+          return;
+        }
+
+        if (!response.ok || !data.ok) {
+          setBackendStatus({
+            state: data.hasApiKey === false ? "misconfigured" : "offline",
+            detail:
+              data.hasApiKey === false
+                ? "Backend is reachable, but the Gemini API key is missing."
+                : "Backend health check failed.",
+            model: data.model,
+          });
+          return;
+        }
+
+        if (data.hasApiKey === false) {
+          setBackendStatus({
+            state: "misconfigured",
+            detail: "Backend is reachable, but the Gemini API key is missing.",
+            model: data.model,
+          });
+          return;
+        }
+
+        setBackendStatus({
+          state: "online",
+          detail: "Backend is reachable.",
+          model: data.model || "Gemini",
+        });
+      } catch (error) {
+        if (!active) {
+          return;
+        }
+
+        setBackendStatus({
+          state: "offline",
+          detail:
+            error instanceof DOMException && error.name === "AbortError"
+              ? "Backend health check timed out."
+              : "Backend is unreachable.",
+        });
+      } finally {
+        window.clearTimeout(timeoutId);
+      }
+    };
+
+    void probeBackend();
+    intervalId = window.setInterval(() => {
+      void probeBackend();
+    }, 30000);
+
+    return () => {
+      active = false;
+      if (intervalId) {
+        window.clearInterval(intervalId);
+      }
+    };
+  }, [healthUrl]);
+
   const handleSend = async () => {
     if (!input.trim() || isLoading) {
+      return;
+    }
+
+    if (backendStatus.state !== "online") {
+      setMessages((prev) => [
+        ...prev,
+        {
+          role: "assistant",
+          content:
+            backendStatus.state === "misconfigured"
+              ? "The backend is reachable, but the Gemini API key is missing. Check the backend secret configuration and try again."
+              : "I cannot send a message because the backend is offline. Check the backend URL or try again once the health status turns online.",
+        },
+      ]);
       return;
     }
 
@@ -82,21 +211,45 @@ export default function Chatbot() {
         throw new Error(data.error || "The chat server did not return a valid response.");
       }
 
-      setActiveModel(data.model || "Gemini Chat");
+      const activeModel = data.model || backendStatus.model || "Gemini";
+      setBackendStatus({
+        state: "online",
+        detail: "Backend responded successfully.",
+        model: activeModel,
+      });
       setMessages((prev) => [...prev, { role: "assistant", content: data.reply as string }]);
     } catch (error) {
       console.error("Chatbot error:", error);
+      setBackendStatus({
+        state: "offline",
+        detail: "The backend request failed.",
+      });
 
-      const message =
-        error instanceof Error && error.message.includes("Failed to fetch")
-          ? "The chat server is not reachable. If this site is on GitHub Pages, set VITE_CHAT_API_URL in GitHub Actions variables and deploy the Gemini backend separately."
-          : "Sorry, the assistant is unavailable right now. Check the backend URL and try again later.";
-
-      setMessages((prev) => [...prev, { role: "assistant", content: message }]);
+      setMessages((prev) => [
+        ...prev,
+        {
+          role: "assistant",
+          content:
+            error instanceof Error && error.message.includes("Failed to fetch")
+              ? "The chat server is not reachable. If this site is on GitHub Pages, set VITE_CHAT_API_URL in GitHub Actions variables and deploy the Gemini backend separately."
+              : "Sorry, the assistant is unavailable right now. Check the backend URL and try again later.",
+        },
+      ]);
     } finally {
       setIsLoading(false);
     }
   };
+
+  const statusLabel =
+    backendStatus.state === "online"
+      ? `Online ¡¤ ${formatModelName(backendStatus.model || "Gemini")}`
+      : backendStatus.state === "misconfigured"
+        ? "Misconfigured"
+        : backendStatus.state === "offline"
+          ? "Offline"
+          : "Checking...";
+
+  const canSend = backendStatus.state === "online" && !isLoading && input.trim().length > 0;
 
   return (
     <div className="fixed bottom-6 right-6 z-50">
@@ -106,7 +259,7 @@ export default function Chatbot() {
             initial={{ opacity: 0, scale: 0.92, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.92, y: 20 }}
-            className="mb-4 flex h-[520px] w-[360px] flex-col overflow-hidden rounded-[28px] border border-slate-200 bg-white shadow-2xl sm:w-[420px]"
+            className="mb-4 flex h-[560px] w-[360px] flex-col overflow-hidden rounded-[28px] border border-slate-200 bg-white shadow-2xl sm:w-[420px]"
           >
             <div className="flex items-center justify-between bg-slate-950 px-4 py-4">
               <div className="flex items-center gap-3">
@@ -115,7 +268,7 @@ export default function Chatbot() {
                 </div>
                 <div>
                   <h3 className="text-sm font-bold text-white">{LAB_INFO.name} AI</h3>
-                  <span className="text-[11px] text-slate-400">{activeModel}</span>
+                  <span className="text-[11px] text-slate-400">{statusLabel}</span>
                 </div>
               </div>
               <button
@@ -124,6 +277,54 @@ export default function Chatbot() {
               >
                 <X className="h-5 w-5" />
               </button>
+            </div>
+
+            <div className="border-b border-slate-100 bg-slate-50 px-4 py-3">
+              <div className="flex items-center justify-between gap-3 text-xs">
+                <div className="min-w-0">
+                  <p className={cn(
+                    "font-semibold",
+                    backendStatus.state === "online" && "text-emerald-700",
+                    backendStatus.state === "offline" && "text-rose-700",
+                    backendStatus.state === "misconfigured" && "text-amber-700",
+                    backendStatus.state === "checking" && "text-slate-700",
+                  )}>
+                    {backendStatus.state === "online" ? "Backend online" : backendStatus.state === "offline" ? "Backend offline" : backendStatus.state === "misconfigured" ? "Backend misconfigured" : "Checking backend"}
+                  </p>
+                  <p className="truncate text-slate-500">{backendStatus.detail}</p>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setBackendStatus({ state: "checking", detail: "Checking backend connection..." });
+                    void fetch(healthUrl, { cache: "no-store" }).then(async (response) => {
+                      const data = (await response.json()) as Partial<HealthResponse>;
+                      if (!response.ok || !data.ok || data.hasApiKey === false) {
+                        setBackendStatus({
+                          state: data.hasApiKey === false ? "misconfigured" : "offline",
+                          detail:
+                            data.hasApiKey === false
+                              ? "Backend is reachable, but the Gemini API key is missing."
+                              : "Backend health check failed.",
+                          model: data.model,
+                        });
+                        return;
+                      }
+                      setBackendStatus({
+                        state: "online",
+                        detail: "Backend is reachable.",
+                        model: data.model || backendStatus.model || "Gemini",
+                      });
+                    }).catch(() => {
+                      setBackendStatus({ state: "offline", detail: "Backend is unreachable." });
+                    });
+                  }}
+                  className="inline-flex items-center gap-1 rounded-full border border-slate-200 bg-white px-2.5 py-1 font-medium text-slate-600 hover:border-slate-300 hover:text-slate-900"
+                >
+                  <RefreshCw className="h-3 w-3" />
+                  Retry
+                </button>
+              </div>
             </div>
 
             <div ref={scrollRef} className="flex-1 space-y-4 overflow-y-auto bg-slate-50 px-4 py-4">
@@ -176,12 +377,17 @@ export default function Chatbot() {
                       void handleSend();
                     }
                   }}
-                  placeholder="Ask about this site..."
-                  className="w-full rounded-2xl bg-slate-100 py-3 pl-4 pr-12 text-sm text-slate-800 outline-none ring-0 transition-all focus:bg-slate-50 focus:ring-2 focus:ring-blue-500"
+                  placeholder={
+                    backendStatus.state === "online"
+                      ? "Ask about this site..."
+                      : "Backend offline. Check status above."
+                  }
+                  disabled={backendStatus.state !== "online"}
+                  className="w-full rounded-2xl bg-slate-100 py-3 pl-4 pr-12 text-sm text-slate-800 outline-none ring-0 transition-all focus:bg-slate-50 focus:ring-2 focus:ring-blue-500 disabled:cursor-not-allowed disabled:bg-slate-100 disabled:text-slate-400"
                 />
                 <button
                   onClick={() => void handleSend()}
-                  disabled={!input.trim() || isLoading}
+                  disabled={!canSend}
                   className="absolute right-2 top-1/2 -translate-y-1/2 rounded-xl p-2 text-blue-600 transition-all hover:bg-blue-50 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-transparent"
                 >
                   <Send className="h-4 w-4" />

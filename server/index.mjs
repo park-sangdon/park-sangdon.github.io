@@ -34,7 +34,7 @@ app.use((req, res, next) => {
   next();
 });
 
-app.get("/health", (_req, res) => {
+app.get(["/health", "/api/health"], (_req, res) => {
   res.json({
     ok: true,
     model,
