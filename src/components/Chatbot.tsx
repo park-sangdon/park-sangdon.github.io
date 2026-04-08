@@ -90,7 +90,7 @@ export default function Chatbot() {
       const message =
         error instanceof Error && error.message.includes("Failed to fetch")
           ? "The chat server is not reachable. Configure VITE_CHAT_API_URL on the frontend and run the Gemini backend."
-          : "Sorry, the assistant is unavailable right now. Please try again again later.";
+          : "Sorry, the assistant is unavailable right now. Please try again later.";
 
       setMessages((prev) => [...prev, { role: "assistant", content: message }]);
     } finally {

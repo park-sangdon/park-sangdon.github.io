@@ -1,32 +1,59 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
+# Personal Site
 
-# Run and deploy your AI Studio app
+This project is a Vite + React site with a Gemini-powered chatbot.
 
-This contains everything you need to run your app locally.
+## Why the old chatbot failed
 
-View your app in AI Studio: https://ai.studio/apps/e4de8182-b382-48c6-b869-6e7ad0e68a86
+The old code instantiated `@google/genai` in the browser. That requires an API key in the client bundle, which is both insecure and the reason you saw:
 
-## Run Locally
+- `An API Key must be set when running in a browser`
 
-**Prerequisites:**  Node.js
+The chatbot now calls a separate backend endpoint instead.
 
+## Local development
 
 1. Install dependencies:
    `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+2. Create `.env.local` in the repo root based on `.env.example`
+3. Start the Gemini backend in one terminal:
+   `npm run dev:server`
+4. Start the frontend in another terminal:
+   `npm run dev:client`
 
-## GitHub Pages deployment
+The frontend runs on `http://localhost:3000` and proxies `/api/*` to the local chat server on `http://localhost:8787`.
 
-This repo now includes `.github/workflows/deploy.yml` so GitHub Pages deploys the Vite build output from `dist/`.
+## API key location
 
-Important:
+Store the Gemini API key only on the backend.
 
-1. In GitHub repository settings, set Pages to use `GitHub Actions`.
-2. Push to `main`.
-3. The workflow builds with `npm ci && npm run build` and deploys `dist`.
+- Local dev: put `GEMINI_API_KEY=...` in `.env.local`
+- Production backend: set `GEMINI_API_KEY` in the hosting platform's secret/environment settings
 
-If GitHub Pages serves the repository root directly, it will try to load `/src/main.tsx` and fail with a MIME type error. The site must serve the production build output instead.
+Do not put the key in:
+
+- `src/*`
+- `VITE_*` variables
+- GitHub Pages secrets expecting the frontend to read them directly
+
+Anything in the frontend bundle is public.
+
+## Production deployment
+
+If the frontend is hosted on GitHub Pages, deploy the chat backend separately and set:
+
+- frontend build env: `VITE_CHAT_API_URL=https://your-api.example.com/api/chat`
+- backend secret env: `GEMINI_API_KEY=...`
+- backend optional env: `GEMINI_MODEL=gemini-3-flash-preview`
+- backend optional env: `FRONTEND_ORIGIN=https://your-site.github.io`
+
+GitHub Pages cannot safely store a runtime Gemini API key for browser-side use.
+
+## Model note
+
+As of 2026-04-08, Google AI for Developers publicly lists:
+
+- `gemini-3-flash-preview`
+- `gemini-3.1-flash-lite-preview`
+- `gemini-3.1-flash-live-preview`
+
+For a normal text chatbot, `gemini-3-flash-preview` is the simplest default in this repo.
