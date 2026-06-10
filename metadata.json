@@ -1,0 +1,6 @@
+{
+  "name": "Sangdon Park Research Homepage",
+  "description": "Personal research and academic homepage of Professor Sangdon Park (박상돈) at Daejeon University, featuring his research in IoT, Edge Computing, and Networks.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
