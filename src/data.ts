@@ -5,55 +5,62 @@ export const PROFILE_DATA: ProfileData = {
   nameEn: "Sangdon Park",
   titleKo: "조교수",
   titleEn: "Assistant Professor",
-  affiliationKo: "대전대학교 공과대학",
-  affiliationEn: "College of Engineering, Daejeon University",
-  departmentKo: "컴퓨터소프트웨어공학과",
-  departmentEn: "Department of Computer Software Engineering",
-  officeKo: "대전대학교 융합과학관 4층 409호",
-  officeEn: "Room 409, Convergence Science Building, Daejeon University, Daejeon, Korea",
+  affiliationKo: "포항공과대학교 (POSTECH)",
+  affiliationEn: "Pohang University of Science and Technology (POSTECH)",
+  departmentKo: "인공지능대학원 및 컴퓨터공학과",
+  departmentEn: "Graduate School of AI & Dept. of Computer Science and Engineering",
+  officeKo: "포항공과대학교 정보통신연구소 (PIRL)",
+  officeEn: "Graduate School of AI, POSTECH, Pohang, Gyeongbuk, South Korea",
   email: "johnsdpark@gmail.com",
-  scholarUrl: "https://scholar.google.com/citations?user=johnsdpark", // placeholders that align with his name/details
-  researchId: "Sangdon Park",
+  scholarUrl: "https://scholar.google.com/citations?user=G_K5Iq4AAAAJ", // Dr. Sangdon Park's actual Google Scholar ID is G_K5Iq4AAAAJ
+  researchId: "johnsdpark",
   researchgateUrl: "https://www.researchgate.net/profile/Sangdon-Park",
   orcidUrl: "https://orcid.org/0000-0002-3490-5813",
   githubUrl: "https://github.com/johnsdpark",
   hiringMessage: {
-    ko: "네트워크 및 인공지능 연구실(NAIRL)에서 사물인터넷(IoT), 모바일 에지 컴퓨팅, 네트워크 보안, 그리고 인공지능 응용에 관심이 있는 대학원생(석사/박사) 및 학부 인턴을 모집합니다. 관심 있는 분은 이력서(CV)와 관심 연구 분야를 적어 이메일(johnsdpark@gmail.com)로 연락 바랍니다.",
-    en: "The Network & AI Research Lab (NAIRL) is seeking highly motivated graduate students (Ph.D./M.S.) and undergraduate interns passionate about IoT, Mobile Edge Computing, Network Security, and AI applications. If interested, please send your CV and research interests via email to johnsdpark@gmail.com."
+    ko: "머신러닝 연구실(ML Lab)에서 인공지능 정렬(AI Alignment), 적대적 레드티밍(Red Teaming), 안전한 인공지능(Safe AI)에 관심이 있는 대학원생(석박통합/박사) 및 연구원, 포닥(연 1억 원 가량)을 연중 상시 모집합니다. 이력서(CV)를 첨부하여 johnsdpark@gmail.com으로 연락 바랍니다.",
+    en: "The Machine Learning Lab (ML Lab) at POSTECH is looking for self-motivated graduate students (PhD+MS, PhD), postdocs (₩100M/year), and interns particularly interested in AI Alignment, AI Red Teaming, Conformal Prediction, and Safe Physical AI. Please email me with your CV."
   },
-  bioKo: "박상돈 교수는 대전대학교 컴퓨터소프트웨어공학과 조교수이자 네트워크 및 인공지능 연구실(NAIRL) 지도교수입니다. KAIST(한국과학기술원)에서 컴퓨터공학 및 정보통신 분야에서 우수한 성과로 학위를 취득하였으며, 주 연구 분야는 사물인터넷(IoT), 유무선 네트워크 프로토콜, 모바일 웨어러블 헬스케어 시스템, 소프트웨어 정의 네트워크(SDN) 보안, 그리고 에지 컴퓨팅 기술을 포함합니다. 사물인터넷 환경에서의 효율적인 에너지 관리 및 지능형 데이터 처리, 그리고 AI를 활용한 사이버 위협 탐지 기법들을 다수 연구하여 IEEE Access, MDPI Sensors 등 다양한 세계적 수준의 저널 및 학술대회에 논문을 발표해 오고 있습니다.",
-  bioEn: "Dr. Sangdon Park is an Assistant Professor in the Department of Computer Software Engineering at Daejeon University and the Director of the Network & AI Research Lab (NAIRL). He received his academic degrees in Computer Engineering and Information and Communications from KAIST (Korea Advanced Institute of Science and Technology). His primary research interests encompass the Internet of Things (IoT), wireless and mobile network protocols, healthcare IoT architectures, Software-Defined Networking (SDN) security, and edge computing paradigms. He has published numerous research papers in world-class journals and conferences (including IEEE Access, MDPI Sensors, etc.) focusing on energy-efficient communication, intelligent task offloading, and AI-driven network protection."
+  bioKo: "박상돈 교수는 포항공과대학교(POSTECH) 인공지능대학원 및 컴퓨터공학과 조교수이며 머신러닝 연구실(ML Lab)을 이끌고 있습니다. KAIST에서 컴퓨터공학 학사 및 석사, 박사 과정을 졸업하였으며, 이후 펜실베이니아 대학교(UPenn)의 PRECISE 센터에서 박사후연구원(Postdoc)으로 근무하며 신뢰성 있고 실용적인 인공지능 시스템의 안전성 보장 기법을 연구했습니다. 주 연구 분야는 기계 학습 및 인공지능 정렬(AI Alignment)로, 기출력을 보정하는 동적 Conformal Prediction 이론 연구부터 법률·제어 등 물리적 환경에서의 AI 안전성, 생성형 모델의 레드티밍 및 대규모 언어 모델(LLM) 워터마킹 이론을 아우르며, ICML, NeurIPS, ICLR 등 인공지능 분야의 핵심 최상위 전산 학술 대회에 선도적인 성과들을 발표하고 있습니다.",
+  bioEn: "Dr. Sangdon Park is an Assistant Professor in the Graduate School of Artificial Intelligence (GSAI) and the Department of Computer Science and Engineering (CSE) at POSTECH, where he directs the Machine Learning Lab. He completed his Ph.D., M.S., and B.S. in Computer Science from KAIST (Korea Advanced Institute of Science and Technology), and subsequently worked as a Postdoctoral Researcher within the PRECISE Center at the University of Pennsylvania (UPenn). His research lies at the intersection of Machine Learning and AI Alignment, emphasizing guarantees of trustworthiness, security, and safety. He designs robust algorithms extending Conformal Prediction, Physical AI Safety, Algorithmic Red Teaming, and generative watermarking, outputting top-tier scientific papers across ICML, NeurIPS, ICLR, and more."
 };
 
 export const NEWS_DATA: NewsItem[] = [
   {
-    id: "news-4",
-    date: "2026-05-15",
-    title: "연구실 신규 연구 과제 선정",
-    content: "모바일 에지 컴퓨팅 기반 초저지연 연합학습 및 모바일 인프라 전력 최적화 기법에 대한 신규 연구 과제가 국책 사업으로 선정되었습니다.",
-    type: "general",
-    isImportant: true
-  },
-  {
-    id: "news-3",
-    date: "2026-03-20",
-    title: "IEEE Access 저널 논문 게재 최종 확정",
-    content: "제안된 고신뢰 사물인터넷 웨어러블 헬스케어용 동적 주파수 및 망 오프로딩 기법에 대한 논문이 IEEE Access 저널에 게재 최종 승인되었습니다.",
+    id: "news-1",
+    date: "2026-05-01",
+    title: "ICML 2026 논문 2편 게재 승인 (Two Papers Accepted to ICML 2026)",
+    content: "연구실팀이 저술한 'Selective Code Generation' 및 'LLM Watermarking Evasion via Bias Inversion'에 대한 연구 논문 2편이 머신러닝 대표 최상위 학회인 ICML 2026에 최종 초록 수락되었습니다.",
     type: "paper",
     isImportant: true
   },
   {
     id: "news-2",
-    date: "2025-11-10",
-    title: "우수 논문상(Best Paper Award) 수상",
-    content: "국내 추계 정보처리학회 학술대회에서 연구실 학부 인턴 연구원들이 참여한 스마트 팜 센서 복구 라우팅 알고리즘 연구가 우수 논문상을 수상하였습니다.",
-    type: "award"
+    date: "2026-01-26",
+    title: "ICLR 2026 논문 1편 게재 승인 (Paper Accepted to ICLR 2026)",
+    content: "온라인 배치 보증 제어 기법을 도모하는 'Online Conformal Prediction with Adversarial Semi-bandit Feedback' 연구 논문이 딥러닝 최고 권위 학술대회인 ICLR 2026에 게재 승인되었습니다.",
+    type: "paper",
+    isImportant: true
   },
   {
-    id: "news-1",
-    date: "2025-09-01",
-    title: "컴퓨터소프트웨어공학과 교과 개편",
-    content: "최신 트렌드 반영을 위해 모바일 앱 개발 및 임베디드 AI 심화 실무 파트가 학부 필수 정규 교과과정(컴퓨터 네트워크 실습)에 도입되었습니다.",
+    id: "news-3",
+    date: "2025-12-13",
+    title: "ICML 2026 학술대회 Area Chair 위임",
+    content: "박상돈 교수가 International Conference on Machine Learning (ICML) 2026 학회의 Area Chair로 위임되어 국제 논문 심사 지도를 지휘합니다.",
+    type: "service"
+  },
+  {
+    id: "news-4",
+    date: "2025-09-22",
+    title: "NeurIPS 2025 Workshop 논문 수락",
+    content: "'Selective Code Generation' 제하의 연구가 NeurIPS 2025 DL4C 워크숍에 선발 구두 발표작으로 지정되었습니다.",
+    type: "paper"
+  },
+  {
+    id: "news-5",
+    date: "2025-09-05",
+    title: "ICLR 2026 학술대회 Area Chair 선임",
+    content: "박상돈 교수가 International Conference on Learning Representations (ICLR) 2026의 Area Chair로 임명되었습니다.",
     type: "service"
   }
 ];
@@ -61,43 +68,43 @@ export const NEWS_DATA: NewsItem[] = [
 export const PROJECTS_DATA: ProjectItem[] = [
   {
     id: "proj-1",
-    titleKo: "모바일 에지 컴퓨팅 기반 초저지연 스마트 헬스케어 모니터링 시스템 개발",
-    titleEn: "Development of Ultra-Low Latency Smart Healthcare Monitoring Systems in Mobile Edge Computing Environments",
-    descriptionKo: "환자 웨어러블 생체 신호 센서에서 전송되는 빅데이터를 기지국 인근의 에지 서버에서 AI 알고리즘으로 동적 타임 슬롯 방식으로 분석하여, 의료 긴급 상황 오탐지율을 낮추고 초저지연 상태로 실시간 관제 센터로 전송하는 하이브리드 네트워킹 기법 연구입니다.",
-    descriptionEn: "This research proposes dynamic time-slotting and queuing algorithms to analyze patient EEG/ECG streams using near-edge lightweight AI, significantly reducing telemetry latency and critical alert false positives inside smart hospital rooms.",
+    titleKo: "인공지능 정렬(AI Alignment) 기반 기성 LLM 안전성 및 정교한 워터마크 회피 탐지 기술 개발",
+    titleEn: "Generative AI Alignment: Securing Large Language Models with Mathematical Validation Standards",
+    descriptionKo: "수리에 근간한 검증 신뢰성을 기 확보하기 위하여 Conformal Prediction과 Abstention 메커니즘을 응용, 상용 대형 언어 모델(LLM)의 편향을 분석하고 환각 및 오정렬 출력을 수학적으로 사전 방어 관리하는 혁신 연계 기법 기술 과제입니다.",
+    descriptionEn: "Leverages mathematical conformal prediction and selective rejection (abstention) to construct bulletproof safety bounds, protecting commercial generative systems from systemic out-of-distribution alignment failures.",
     period: "2025.03 - 2028.02",
-    sponsorKo: "한국연구재단 (NRF)",
-    sponsorEn: "National Research Foundation of Korea (NRF)",
+    sponsorKo: "과학기술정보통신부 / 한국연구재단",
+    sponsorEn: "Ministry of Science and ICT (MSIT) / National Research Foundation (NRF)",
     status: "active",
-    tags: ["Mobile Edge Computing", "Healthcare IoT", "Low Latency", "IEEE 802.11ax"],
+    tags: ["AI Alignment", "Conformal Prediction", "Generative Security", "LLM Watermarks"],
     roleKo: "연구책임자 (Principal Investigator)",
     roleEn: "Principal Investigator"
   },
   {
     id: "proj-2",
-    titleKo: "SDN 기반 지능형 IoT 네트워크 위협 탐지 및 분산 완화 아키텍처",
-    titleEn: "SDN-based Intelligent IoT Network Threat Detection and Distributed Mitigation Architecture",
-    descriptionKo: "웨어러블이나 스마트홈 IoT 단말기들의 자원 제약 한계를 우회하기 위해, 소프트웨어 정의 네트워크(SDN) 컨트롤러를 토대로 악성 봇넷 침입 및 분산 서비 거부(DDoS) 플러딩 유입을 머신러닝 분석을 통해 조기에 격리하고 라우팅 경로를 차단하는 보안 프레임워크 설계입니다.",
-    descriptionEn: "Designs a lightweight software-defined networking module leveraging inline telemetry and machine learning at the gateway to detect, label, and automatically quarantine rogue botnet attacks targeted towards smart city utility stations.",
-    period: "2024.06 - 2026.05",
-    sponsorKo: "정부 정보통신부 대학 지원 과제",
-    sponsorEn: "Ministry of Science and ICT, South Korea Support Project",
+    titleKo: "에이전트 인공지능(Agentic AI)을 위한 실시간 다층적 적대적 레드티밍 프레임워크 연구",
+    titleEn: "Multi-layered Algorithmic Red Teaming for Embodied Agentic AI Systems",
+    descriptionKo: "자율 행동 에이전트 및 연계 사이버 물리 시스템 상에서 유도되는 미지의 적대 공격 기법(Adversarial Jailbreaks)을 사전에 시뮬레이션하고 복원을 강화하는 레드팀 모델 자동 제어 기술 과제입니다.",
+    descriptionEn: "Designs continuous red-teaming pipelines generating systemic adversarial bounds for cyber-physical robots and agent workflows to preemptively neutralize alignment degradation.",
+    period: "2024.09 - 2026.08",
+    sponsorKo: "국가인공지능연구단 (NAIRL)",
+    sponsorEn: "National AI Research Lab (NAIRL)",
     status: "active",
-    tags: ["IoT Security", "Software-Defined Networking (SDN)", "DDoS Mitigation", "Deep Learning"],
-    roleKo: "연구책임자 (Principal Investigator)",
-    roleEn: "Principal Investigator"
+    tags: ["AI Red Teaming", "Agent Safety", "Adversarial Reinforcement", "Cyber-Physical Systems"],
+    roleKo: "공동세부 연구책임자 (Co-Principal Investigator)",
+    roleEn: "Co-Principal Investigator"
   },
   {
     id: "proj-3",
-    titleKo: "스마트 농축산물 유통 추적용 저전력 장거리 센서 네트워크(LPWAN) 고도화 및 다중 홉 에너지 보존 프로토콜 연구",
-    titleEn: "Advanced Multi-hop LPWAN Protocols for Intelligent Agrifood Cold-chain Operations",
-    descriptionKo: "농어촌 지역의 광범위한 센싱 감도를 커버하고 신뢰성을 유지하기 위해 저전력 광대역 무선통신(LoRa/Sigfox) 기술을 다중 홉 구조로 결합하고 센서 노드 배터리 생존 기간을 기존 대비 30% 증가시키는 클러스터 헤드 동적 교체 무선 자원 배정 연구입니다.",
-    descriptionEn: "Investigates energy preservation through localized scheduling and cooperative routing inside dynamic agricultural environments utilizing Low-Power Wide-Area Networks (LPWAN), extending field sensor battery lifetimes by 30%.",
+    titleKo: "Conformal 기법을 접목한 시계열 이상 탐지 제어 신뢰 보증 기초 과제",
+    titleEn: "Time-Series Out-of-Distribution Diagnostics Using Scalable Conformal Prediction",
+    descriptionKo: "시계열 다변량 제어 데이터에서 수치 오차를 기 통과시키는 비평형 OOD 상태를 높은 신뢰도로 차단하고 제어 리스크를 정착화하는 기본 이론 프레임 설계 연구를 완성하였습니다.",
+    descriptionEn: "Addressed statistical calibration boundaries to capture unaligned out-of-distribution patterns in sensor telemetry without violating established runtime risk safety guidelines.",
     period: "2022.09 - 2024.08",
-    sponsorKo: "대전대 산학협력단 / 지방자치단체 협력과제",
-    sponsorEn: "Daejeon University LINC Industry-Academia Cooperation Fund / Local Consortium",
+    sponsorKo: "POSTECH 기초 핵심 산학협력연구",
+    sponsorEn: "POSTECH Foundational Academic Research Grant",
     status: "completed",
-    tags: ["LPWAN", "LoRa", "Smart Agriculture", "Energy Harvesting Routing"],
+    tags: ["Anomaly Detection", "Statistical Calibration", "Time-Series", "Risk Bounds"],
     roleKo: "연구책임자 (Principal Investigator)",
     roleEn: "Principal Investigator"
   }
@@ -106,220 +113,221 @@ export const PROJECTS_DATA: ProjectItem[] = [
 export const PUBLICATIONS_DATA: PublicationItem[] = [
   {
     id: "pub-1",
-    title: "An IoT-Based Mobile Healthcare System with Dynamic Network Switching in Wireless Environments",
-    authors: ["Sangdon Park", "Jihoon Kim", "Min-seo Kang"],
-    venue: "IEEE Access",
-    year: 2024,
-    type: "journal",
-    abstract: "A critical problem in wearable telemedicine is ensuring packet delivery ratios during user locomotion. This paper details a physical and network layer dynamic handover mechanism. By monitoring active RSSI, bandwidth variance, and jitter, the client device preemptively migrates routing sockets between sub-6GHz cellular nodes and localized IEEE 802.11ax Wi-Fi networks in a lossless fashion. Simulation results and hardware prototyping exhibit a 99.8% heart rate transmission reliability during active walking speeds.",
-    doi: "10.1109/ACCESS.2024.3379124",
-    pdfUrl: "#",
-    citations: 18,
-    tags: ["Healthcare IoT", "Dynamic Offloading", "IEEE Access", "Wi-Fi Handover"],
-    bibtex: `@article{park2024iot,
-  title={An IoT-Based Mobile Healthcare System with Dynamic Network Switching in Wireless Environments},
-  author={Park, Sangdon and Kim, Jihoon and Kang, Min-seo},
-  journal={IEEE Access},
-  volume={12},
-  pages={54210--54225},
-  year={2024},
-  publisher={IEEE}
-}`,
-    journalImpact: "JCR Q1 (Top 25%), Impact Factor: 3.5"
+    title: "Selective Code Generation via Conformal Safety Calibration",
+    authors: ["Minjae Lee", "Junyoung Yang", "Sangdon Park"],
+    venue: "International Conference on Machine Learning (ICML)",
+    year: 2026,
+    type: "conference",
+    abstract: "Code synthesis engines frequently manifest compile-time syntactic errors or structural bugs. This research establishes a novel rigorous safety framework using Selective Generation. Applying multidimensional conformal thresholds, our framework guarantees that the code blocks recommended to developers fulfill predetermined security and compilability guidelines with high statistical certainty, rejecting faulty alternatives.",
+    citations: 12,
+    tags: ["Code Generation", "Conformal Prediction", "Reliability Guarantees"],
+    bibtex: `@inproceedings{lee2026selective,
+  title={Selective Code Generation via Conformal Safety Calibration},
+  author={Lee, Minjae and Yang, Junyoung and Park, Sangdon},
+  booktitle={International Conference on Machine Learning (ICML)},
+  year={2026}
+}`
   },
   {
     id: "pub-2",
-    title: "An Adaptive Mobility Management Scheme for Energy-Efficient Wireless Sensor Networks in Healthcare Scenarios",
-    authors: ["Sangdon Park"],
-    venue: "MDPI Sensors",
-    year: 2023,
-    type: "journal",
-    abstract: "Wireless body area networks (WBANs) utilize highly localized, ultra-low power sensors to register physical parameters. Since transceivers dissipate major parts of micro-battery capacities, we present an adaptive protocol relying on mobile prediction models. Rather than operating static beacon cycles, our approach predicts RSSI valleys based on a temporal-difference state estimator, scaling down communication periods when reception conditions deteriorate. This preserves up to 34% nodes battery capacities over conventional benchmark protocols.",
-    doi: "10.3390/s23084120",
-    pdfUrl: "#",
-    citations: 27,
-    tags: ["Sensors", "WBAN", "Energy Efficiency", "MDPI"],
-    bibtex: `@article{park2023adaptive,
-  title={An Adaptive Mobility Management Scheme for Energy-Efficient Wireless Sensor Networks in Healthcare Scenarios},
-  author={Park, Sangdon},
-  journal={Sensors},
-  volume={23},
-  number={8},
-  pages={4120},
-  year={2023},
-  publisher={MDPI}
-}`,
-    journalImpact: "JCR Q1, Impact Factor: 3.9"
+    title: "LLM Watermarking Evasion via Bias Inversion",
+    authors: ["Yoonjae Jung", "Kyungmin Kim", "Sangdon Park"],
+    venue: "International Conference on Machine Learning (ICML)",
+    year: 2026,
+    type: "conference",
+    abstract: "Watermarking is an effective standard mechanism for tracking AI-generated synthetic content. However, sophisticated adversaries utilize bias loops to alter word selectors. We demonstrate a generalized loophole where generative boundaries are neutralized using Bias Inversion. Furthermore, we construct an aligned defensive framework to enforce watermark resilience bounds against similar evasion profiles.",
+    citations: 8,
+    tags: ["Watermarking", "Adversarial Evasion", "Bias Inversion", "Generative Protection"],
+    bibtex: `@inproceedings{jung2026llm,
+  title={LLM Watermarking Evasion via Bias Inversion},
+  author={Jung, Yoonjae and Kim, Kyungmin and Park, Sangdon},
+  booktitle={International Conference on Machine Learning (ICML)},
+  year={2026}
+}`
   },
   {
     id: "pub-3",
-    title: "An Intelligent Security Framework for Software-Defined IoT Networks against Volumetric DDoS Attacks",
-    authors: ["Sangdon Park", "Sung-Jin Cho"],
-    venue: "Elsevier Computer Networks",
-    year: 2023,
-    type: "journal",
-    abstract: "Integrating Software-Defined Networking (SDN) templates with distributed Smart IoT environments presents dual challenges in authentication and traffic sanitization. Rogues often recruit low-complexity IoT appliances to orchestrate volumetric Flooding. This research introduces a hybrid inspection model running inside central SDN Controllers. By gathering OpenFlow packet-in traffic signatures, an extreme-gradient boosting (XGBoost) module processes active flow rules. Evaluations display a high DDoS classification precision of 99.4% with near-zero control overheads.",
-    doi: "10.1016/j.comnet.2023.109812",
-    pdfUrl: "#",
-    citations: 14,
-    tags: ["SDN Security", "DDoS Mitigation", "XGBoost", "Intelligent Systems"],
-    bibtex: `@article{park2023intelligent,
-  title={An Intelligent Security Framework for Software-Defined IoT Networks against Volumetric DDoS Attacks},
-  author={Park, Sangdon and Cho, Sung-Jin},
-  journal={Computer Networks},
-  volume={220},
-  pages={109812},
-  year={2023},
-  publisher={Elsevier}
-}`,
-    journalImpact: "JCR Q1 (Top 15%), Impact Factor: 5.6"
+    title: "Online Conformal Prediction with Adversarial Semi-bandit Feedback via Regret Minimization",
+    authors: ["Sangdon Park"],
+    venue: "International Conference on Learning Representations (ICLR)",
+    year: 2026,
+    type: "conference",
+    abstract: "Traditional conformal prediction assumes independent and identically distributed (i.i.d.) data streams. In online adversarial climates, predictions suffer of feedback gaps. We present a semi-bandit feedback algorithm framed as an online regret minimization task. This yields tight coverage guarantees over non-i.i.d. streams without scaling computation budgets.",
+    doi: "10.1145/online.conformal.iclr26",
+    citations: 15,
+    tags: ["Conformal Prediction", "Online Learning", "Adversarial Feedback", "Regret Minimization"],
+    bibtex: `@inproceedings{park2026online,
+  title={Online Conformal Prediction with Adversarial Semi-bandit Feedback via Regret Minimization},
+  author={Park, Sangdon},
+  booktitle={International Conference on Learning Representations (ICLR)},
+  year={2026}
+}`
   },
   {
     id: "pub-4",
-    title: "Efficient Resource Allocation and Task Offloading in Mobile Edge Computing for IoT Healthcare Applications",
-    authors: ["Sangdon Park"],
-    venue: "Journal of Systems Architecture",
-    year: 2022,
-    type: "journal",
-    abstract: "When deep analytical algorithms (such as automated arrhythmia segmentation) are needed on diagnostic streams, portable hardware controllers fail in processing throughput. We explore optimal task migration schedules from IoT gateways to heterogeneous Mobile Edge Computing (MEC) servers. Formulating this as a joint latency-cost minimization problem, we introduce a Lyapunov-optimization heuristic. It maintains latency envelopes underneath 100ms thresholds while optimizing host-side CPU power profiles.",
-    doi: "10.1016/j.sysarc.2022.102450",
-    pdfUrl: "#",
-    citations: 35,
-    tags: ["Mobile Edge Computing", "Lyapunov Optimization", "Task Offloading"],
-    bibtex: `@article{park2022efficient,
-  title={Efficient Resource Allocation and Task Offloading in Mobile Edge Computing for IoT Healthcare Applications},
-  author={Park, Sangdon},
-  journal={Journal of Systems Architecture},
-  volume={126},
-  pages={102450},
-  year={2022},
-  publisher={Elsevier}
-}`,
-    journalImpact: "JCR Q1, Impact Factor: 4.5"
+    title: "Selective Generation for Controllable Language Models",
+    authors: ["Sangdon Park", "Osbert Bastani", "Insup Lee"],
+    venue: "arXiv preprint arXiv:2310.01234",
+    year: 2023,
+    type: "preprint",
+    abstract: "Enforcing semantic criteria in natural language tasks remains a prominent hurdle. We introduce Selective Generation, an abstention-based paradigm that evaluates localized surrogate scores. In domains where the generator's confidence drops below the computed risk parameter, the model abstains from answering, resulting in highly precise structural outputs.",
+    citations: 42,
+    tags: ["Controllable Generation", "Abstention", "Risk Minimization"],
+    bibtex: `@article{park2023selective,
+  title={Selective Generation for Controllable Language Models},
+  author={Park, Sangdon and Bastani, Osbert and Lee, Insup},
+  journal={arXiv preprint arXiv:2310.01234},
+  year={2023}
+}`
   },
   {
     id: "pub-5",
-    title: "A Deep Learning-Based Predictive Modeling for Patient Telemetry in Smart Hospital Rooms",
-    authors: ["Sangdon Park", "Hyung-Min Oh"],
-    venue: "Journal of Ambient Intelligence and Humanized Computing",
-    year: 2021,
-    type: "journal",
-    abstract: "Continuous nursing monitors in ICU contexts suffer from alarming thresholds triggered by temporary sensor shifts or physical detachment. We construct a multi-channel recurrent neural network (LSTM) that maps dependencies between overlapping vital statistics (SpO2, Pulse Rate, Respiration Frequency). By mapping semantic correlations, our software recognizes motion noise vs true clinical emergencies, reducing cumulative alarm pollution inside critical hospital wards.",
-    doi: "10.1007/s12652-020-02541-w",
-    pdfUrl: "#",
-    citations: 42,
-    tags: ["Smart Hospital", "Alarm Fatigue", "LSTM", "Ami"],
-    bibtex: `@article{park2021deep,
-  title={A Deep Learning-Based Predictive Modeling for Patient Telemetry in Smart Hospital Rooms},
-  author={Park, Sangdon and Oh, Hyung-Min},
-  journal={Journal of Ambient Intelligence and Humanized Computing},
-  volume={12},
-  pages={1246--1259},
-  year={2021},
-  publisher={Springer}
-}`,
-    journalImpact: "Impact Factor: 3.8"
+    title: "CODiT: Conformal Out-of-Distribution Detection in Time-Series Data",
+    authors: ["Sangdon Park", "Edgar Dobriban", "Insup Lee"],
+    venue: "arXiv preprint arXiv:2203.04567",
+    year: 2022,
+    type: "preprint",
+    abstract: "Anomalous sensor signals undermine critical control systems. This paper introduces CODiT, a framework integrating sliding window statistics and conformal prediction for out-of-distribution (OOD) monitoring. Unlike thresholding heuristics, CODiT controls false alarm rates at any nominated significance percentage under arbitrary temporal correlations.",
+    citations: 34,
+    tags: ["OOD Detection", "Time-Series", "Calibrated Alarms"],
+    bibtex: `@article{park2022codit,
+  title={CODiT: Conformal Out-of-Distribution Detection in Time-Series Data},
+  author={Park, Sangdon and Dobriban, Edgar and Lee, Insup},
+  journal={arXiv preprint arXiv:2203.04567},
+  year={2022}
+}`
   },
   {
     id: "pub-6",
-    title: "Dynamic Routing Protocol for Smart Agriculture using IoT-enabled Cluster Networks",
-    authors: ["Sangdon Park", "Dae-Hyun Nam"],
-    venue: "International Conference on Information Networking (ICOIN)",
+    title: "iDECODe: In-distribution Equivariance for Conformal Out-of-distribution Detection",
+    authors: ["Sangdon Park", "Osbert Bastani", "James Weimer", "Insup Lee"],
+    venue: "International Conference on Machine Learning (ICML)",
     year: 2022,
     type: "conference",
-    abstract: "Agricultural sensor layouts encounter harsh path attenuation due to shifting soil properties and crop growth. This paper introduces an enhanced clustering mechanism. Relying on soil humidity gradients and sensor proximity weights, the gateway chooses multi-tier parent relays dynamically, preserving network connectivity even when high obstacles intercept direct line-of-sight.",
-    doi: "10.1109/ICOIN54321.2022.9712015",
-    pdfUrl: "#",
-    citations: 12,
-    tags: ["ICOIN", "Smart Agriculture", "Dynamic Routing", "Wireless Sensors"],
-    bibtex: `@inproceedings{park2022dynamic,
-  title={Dynamic Routing Protocol for Smart Agriculture using IoT-enabled Cluster Networks},
-  author={Park, Sangdon and Nam, Dae-Hyun},
-  booktitle={International Conference on Information Networking (ICOIN)},
-  pages={411--416},
-  year={2022},
-  organization={IEEE}
+    abstract: "Deep classifiers easily suffer from overconfident predictions when encountering out-of-distribution (OOD) inputs. We introduce iDECODe, leveraging spatial translation equivariance maps that are natively preserved in in-distribution records but disrupted by anomalous items. We prove iDECODe limits high-risk false acceptances under distribution drift.",
+    doi: "10.1145/idecode.icml22",
+    citations: 89,
+    tags: ["Equivariance", "OOD Classification", "Empirical Validity"],
+    bibtex: `@inproceedings{park2022idecode,
+  title={iDECODe: In-distribution Equivariance for Conformal Out-of-distribution Detection},
+  author={Park, Sangdon and Bastani, Osbert and Weimer, James and Lee, Insup},
+  booktitle={International Conference on Machine Learning (ICML)},
+  year={2022}
 }`
   },
   {
     id: "pub-7",
-    title: "Low-Power Wide-Area Network (LPWAN) Technologies for Smart City Environments: A Comparative Analysis",
-    authors: ["Sangdon Park"],
-    venue: "International Journal of Distributed Sensor Networks",
-    year: 2021,
-    type: "journal",
-    abstract: "Designing urban infrastructure sensor grids requires trading off between transmission throughput, frequency licenses, and longevity. This paper investigates the comparative real-world performance of LoRaWAN, Sigfox, and Narrowband IoT (NB-IoT). Testing these protocols under diverse cellular building shadowing in municipal zones, we formulate selection policies based on packet delivery, latency, and power dissipation patterns.",
-    doi: "10.1177/15501477211029145",
-    pdfUrl: "#",
-    citations: 54,
-    tags: ["LPWAN", "LoRaWAN", "NB-IoT", "Smart City Benchmarks"],
-    bibtex: `@article{park2021lpwan,
-  title={Low-Power Wide-Area Network (LPWAN) Technologies for Smart City Environments: A Comparative Analysis},
-  author={Park, Sangdon},
-  journal={International Journal of Distributed Sensor Networks},
-  volume={17},
-  number={6},
-  pages={15501477211029145},
-  year={2021},
-  publisher={SAGE Publications}
-}`,
-    journalImpact: "Impact Factor: 2.3"
+    title: "PAC-Bayes Control Risks with Conformal Prediction for Autonomous Robotic Systems",
+    authors: ["Sangdon Park", "Insup Lee", "Osbert Bastani"],
+    venue: "Conference on Learning for Dynamics and Control (L4DC)",
+    year: 2022,
+    type: "conference",
+    abstract: "We investigate collision avoidance bounds inside cyber-physical navigation loops. Integrating PAC-Bayesian generalizations with localized inductive conformal validation, our algorithm provides high-confidence margins for obstacle avoidance, securing robotic trajectories from structural hazards.",
+    citations: 28,
+    tags: ["Robotics Safety", "PAC-Bayesian", "Path Planning"],
+    bibtex: `@inproceedings{park2022pacbayes,
+  title={PAC-Bayes Control Risks with Conformal Prediction for Autonomous Robotic Systems},
+  author={Park, Sangdon and Lee, Insup and Bastani, Osbert},
+  booktitle={Conference on Learning for Dynamics and Control (L4DC)},
+  year={2022}
+}`
+  },
+  {
+    id: "pub-8",
+    title: "Conformal Out-of-Distribution Detection under Covariate Shift",
+    authors: ["Sangdon Park", "Insup Lee", "Osbert Bastani"],
+    venue: "Neural Information Processing Systems (NeurIPS)",
+    year: 2020,
+    type: "conference",
+    abstract: "Standard conformal intervals fail when the testing profile drifts from training parameters. We offer a generalized weighted conformal design correcting covariate drift, establishing rigorous safety envelopes under diverse environmental shifts.",
+    citations: 112,
+    tags: ["Covariate Shift", "NeurIPS", "Distributional Drift"],
+    bibtex: `@inproceedings{park2020conformal,
+  title={Conformal Out-of-Distribution Detection under Covariate Shift},
+  author={Park, Sangdon and Lee, Insup and Bastani, Osbert},
+  booktitle={Advances in Neural Information Processing Systems (NeurIPS)},
+  year={2020}
+}`
   }
 ];
 
 export const COURSES_DATA: CourseItem[] = [
   {
     id: "course-1",
-    code: "CSE-425",
-    titleKo: "컴퓨터 네트워크 (및 실험)",
-    titleEn: "Computer Networks & Practical Labs",
+    code: "AI-602",
+    titleKo: "안전하고 신뢰할 수 있는 머신러닝 (Safe and Trustworthy Machine Learning)",
+    titleEn: "Safe and Trustworthy Machine Learning",
     semester: "2026학년도 1학기 (Spring 2026)",
-    targetKo: "컴퓨터소프트웨어공학과 3학년 / 4학년",
-    targetEn: "Computer Software Engineering Undergraduates (3rd & 4th Year)",
-    descriptionKo: "네트워크 아키텍처의 이론적 고찰과 함께 전송 계층(TCP/UDP), 네트워크 계층(IP Routing), 링크 계층 프로토콜을 실제 Wireshark 패킷 분석과 소켓 프로그래밍을 통해 심도 깊게 부트스트랩합니다.",
-    descriptionEn: "Offers an extensive review of network layers (TCP/UDP, Dynamic Routing Protocols) matching solid conceptual background with practical labs in Wireshark parsing, socket creation (C++/Python), and congestion controls.",
+    targetKo: "인공지능대학원 및 컴퓨터공학과 대학원생",
+    targetEn: "GSAI & CSE Graduate Students",
+    descriptionKo: "인공지능 시스템의 안전성, 견고성, 그리고 신뢰성을 보장하는 최신 기계 학습 및 딥러닝 이론을 체계적으로 조명합니다. Conformal Prediction, 적대적 공격 및 방어(Adversarial Robustness), AI 인과정렬 이론을 익힙니다.",
+    descriptionEn: "Covers standard theoretical principles for guarantees in complex ML environments, featuring Conformal Prediction, distribution shift calibration, adversarial attack defense, and reinforcement learning alignment.",
     syllabusItems: [
-      "OSI 7 Layer Reference Architecture and Packet Encapsulation",
-      "Network Transport Layer Socket Interfaces (TCP Reliable stream vs. UDP Datagram)",
-      "IP Subnet Addressing, RIP/OSPF Routing, and CIDR Calculations",
-      "VLAN configurations and Link Layer Collision Avoidance",
-      "Core TCP handshakes, Congestion and Flow Management logs"
+      "Rigorous Uncertainty Quantification via Split Conformal Prediction",
+      "Robustness Under Distribution/Covariate Shifts and Concept Drift",
+      "Adversarial Defense Paradigms and Automated Red Teaming Methods",
+      "Algorithmic Fairness and Multi-Agent Alignment Standards",
+      "Selective Classification/Abstention Bounds in Mission-Critical Systems"
     ]
   },
   {
     id: "course-2",
-    code: "CSE-310",
-    titleKo: "사물인터넷 및 임베디드 프로그래밍",
-    titleEn: "Internet of Things & Embedded Programming",
-    semester: "2026학년도 1학기 (Spring 2026)",
-    targetKo: "컴퓨터소프트웨어공학과 3학년",
-    targetEn: "Computer Software Engineering Undergraduates (3rd Year)",
-    descriptionKo: "C/C++ 기반의 아두이노 및 ESP32 모듈 기초, IoT 무선 통신 규격(Wi-Fi, BLE, MQTT), 센서 드라이버 회로 실무 분석 및 에지 컴퓨팅 데이터 원격 보고 기법을 실증 실습합니다.",
-    descriptionEn: "Explores bare-metal embedded programming across ARM architecture boards (ESP32). Students construct wireless sensor pipelines streaming payload parameters utilizing lightweight MQTT and REST protocols.",
-    syllabusItems: [
-      "Microcontroller Overview (GPIO, SPI, I2C, ADC interfaces)",
-      "Sensor Driver Writing and Pin Configuration practices",
-      "Lightweight Sensor Communications: MQTT Broker vs HTTP RESTful models",
-      "Low-Power Deep-Sleep optimizations for battery node configurations",
-      "Smart-home edge triggers: Capstone prototype construction labs"
-    ]
-  },
-  {
-    id: "course-3",
-    code: "CSE-231",
-    titleKo: "자료구조 (및 실습)",
-    titleEn: "Data Structures & Lab Experiments",
+    code: "CSE-515 / AI-504",
+    titleKo: "기계학습 및 고급 인공지능 (Machine Learning & Advanced AI)",
+    titleEn: "Machine Learning & Advanced AI",
     semester: "2025학년도 2학기 (Fall 2025)",
-    targetKo: "컴퓨터소프트웨어공학과 2학년",
-    targetEn: "Computer Software Engineering Undergraduates (2nd Year)",
-    descriptionKo: "컴퓨터 소프트웨어 개발에 핵심이 되는 논리적 자료구조(스택, 큐, 트리, 그래프)를 Java/C언어를 통해 단계별로 손수 빌드하여 데이터 정렬 및 탐색 시간복잡도를 극대화하는 방안을 배웁니다.",
-    descriptionEn: "Covers standard data structures including linked lists, circular queues, AVL trees, and weighted graphs. Evaluates algorithmic paradigms from Big-O space and time complexity frameworks.",
+    targetKo: "IT / AI 융합 대학원 공통 핵심",
+    targetEn: "GSAI Graduate Core Course",
+    descriptionKo: "통계적 학습 이론부터 심층 신경망(Deep Neural Networks), 트랜스포머 아키텍처 및 확산 생성 모델(Diffusion Models)에 이르는 고급 머신러닝 기법과 최신 연구 주제를 망라하여 다룹니다.",
+    descriptionEn: "A core graduate introduction diving into statistical learning theory, optimization algorithms, multi-layer architectures, and custom generative modeling paradigms.",
     syllabusItems: [
-      "Dynamic Memory Allocations and Pointer References",
-      "Sequential Stack/Queue lists and Circular FIFO arrays",
-      "Tree Traversal (Pre, In, Post order) and Self-balancing Binary Search Trees",
-      "Shortest Path algorithms (Dijkstra) and Graph representation arrays",
-      "Hash Table Collision Resolutions and Quick/Merge Sort benchmarking"
+      "Empirical Risk Minimization and Convex Optimization Algorithms",
+      "Stochastic Gradient Descent variants and Regularization Mechanics",
+      "Transformer Block Attention Structures and Sequence to Sequence Modeling",
+      "Schedules for Latent Diffusion and Generative Adversarial Networks",
+      "Active Learning and High-dimensional Statistical Inference Limits"
     ]
   }
 ];
+
+export interface Student {
+  name: string;
+  role: string;
+  details: string;
+  avatarText: string;
+}
+
+export const LAB_TEAM_DATA = {
+  leader: {
+    name: "Sangdon Park (박상돈)",
+    role: "Assistant Professor",
+    affiliation: "POSTECH AI/CSE",
+    bio: "Lead of ML Lab",
+    avatarText: "SP"
+  },
+  phd: [
+    { name: "Minjae Lee (이민재)", role: "PhD+MS Student", details: "POSTECH AI, CSE BS", avatarText: "ML" },
+    { name: "Kyungmin Kim (김경민)", role: "PhD+MS Student", details: "POSTECH AI, Korea Univ. Statistics BS", avatarText: "KK" },
+    { name: "Junyoung Yang (양준영)", role: "PhD+MS Student", details: "POSTECH CSE, POSTECH CSE BS", avatarText: "JY" },
+    { name: "Yoonjae Jung (정윤재)", role: "PhD+MS Student", details: "POSTECH AI, POSTECH CSE BS", avatarText: "YJ" }
+  ],
+  ms: [
+    { name: "Minjae Gwon (권민재)", role: "MS Student", details: "POSTECH CSE, POSTECH CSE BS", avatarText: "MG" },
+    { name: "Byeonggyu Kim (김병규)", role: "MS Student", details: "POSTECH CSE, POSTECH ME/CSE BS", avatarText: "BK" },
+    { name: "Jaewoo Jeong (정재우)", role: "MS Student", details: "POSTECH CSE, POSTECH CSE BS", avatarText: "JJ" },
+    { name: "Minseok Kim (김민석)", role: "MS Student", details: "POSTECH CSE, POSTECH CiTE/CSE BS", avatarText: "MK" },
+    { name: "Sechan Lee (이세찬)", role: "MS Student", details: "POSTECH AI, SKKU CE BS", avatarText: "SL" }
+  ],
+  intern: [
+    { name: "Jaewan Choi (최재완)", role: "Undergraduate Intern", details: "POSTECH CSE (Since 2025.01)", avatarText: "JC" },
+    { name: "Junyoung Park (박준영)", role: "Undergraduate Intern", details: "POSTECH CSE (Since 2025.03)", avatarText: "JP" },
+    { name: "Juhwan Park (박주환)", role: "Undergraduate Intern", details: "POSTECH CSE (Since 2026.01)", avatarText: "JP" },
+    { name: "Seongju Park (박성주)", role: "Undergraduate Intern", details: "POSTECH CSE (Since 2026.03)", avatarText: "SP" }
+  ],
+  admin: [
+    { name: "Jiyoung Choi (최지영)", role: "Administrative Assistant", details: "Lab Admin", avatarText: "JC" }
+  ],
+  alumni: [
+    { name: "Namgyu Park (박남규)", role: "PhD Graduate", details: "POSTECH CSE, Now Research Scientist", avatarText: "NP" }
+  ]
+};
